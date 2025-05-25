@@ -1,70 +1,146 @@
-# Getting Started with Create React App
+# 📝 Todo Summary Assistant
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A full-stack application that lets users manage a list of to-do items, generate a summary of incomplete tasks using an LLM (Mistral via OpenRouter), and send the summary to a Slack channel.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 🚀 Features
 
-### `npm start`
+- ✅ Add, edit, delete to-do items
+- 📋 View a list of current tasks
+- 🤖 Generate a natural language summary of pending tasks using Mistral LLM
+- 📤 Send summaries directly to a Slack channel via webhook
+- 🔔 Visual feedback via toast notifications for success/failure
+- 🛠 Built with React, Vite, TailwindCSS, shadcn/ui, Node.js, Prisma, and Mistral LLM
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 🛠️ Setup Instructions
 
-### `npm test`
+### Prerequisites
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Node.js v18+
+- PostgreSQL or any supported Prisma database
+- Slack workspace with webhook access
+- [OpenRouter](https://openrouter.ai) account and API key for Mistral
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 1. Clone the Repository
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```bash
+git clone https://github.com/your-username/todo-summary-assistant.git
+cd todo-summary-assistant
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 2. Install Frontend Dependencies
 
-### `npm run eject`
+```
+cd client/
+npm install
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### 3. Install Backend Dependencies
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```
+cd server/
+npm install
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### 4. Configure Environment Variables
+Create a .env file in /server with:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```
+# Database configuration
+DATABASE_URL=postgres://user:password@localhost:6543/mydatabase
+DIRECT_URL=postgres://user:password@localhost:6543/mydatabase
 
-## Learn More
+# OpenRouter API key
+OPENROUTER_API_KEY=your_openrouter_api_key_here
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+# Slack webhook URL for notifications
+SLACK_WEBHOOK_URL=https://hooks.slack.com/services/your/slack/webhook/url
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### 5. Setup Database
 
-### Code Splitting
+```
+npx prisma migrate dev --name init
+npx prisma generate
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### 6. Run the App
+Backend
 
-### Analyzing the Bundle Size
+```
+cd server
+npm run dev
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Frontend
+```
+cd client
+npm run dev
+```
 
-### Making a Progressive Web App
+## 🤖 LLM & Slack Integration
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Slack
+Go to https://api.slack.com/apps and create a new app
 
-### Advanced Configuration
+Enable Incoming Webhooks
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Create a webhook URL and copy it to your .env file under SLACK_WEBHOOK_URL
 
-### Deployment
+Mistral via OpenRouter
+Create an account at https://openrouter.ai
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+Go to your API key settings
 
-### `npm run build` fails to minify
+Copy your key and add it to .env as OPENROUTER_API_KEY
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+> **Note**: You’ll be using the Mistral model via OpenRouter’s API endpoint.
+
+## 🧠 Design & Architecture Decisions
+
+### Frontend
+
+- React + Vite for fast and modern UI development.
+
+- TailwindCSS with shadcn/ui for clean UI components.
+
+- sonner for toast notifications—non-intrusive and accessible feedback.
+
+- Validation to prevent empty or duplicate tasks.
+
+### Backend
+
+- Node.js + Express for RESTful APIs.
+
+- Prisma ORM for database interaction (PostgreSQL recommended).
+
+- LLM integration is abstracted in a utility layer using OpenRouter’s Mistral endpoint.
+
+- Slack Webhook used to post summaries, keeping Slack integration simple and decoupled.
+
+## 🗂️ Project Structure
+
+```
+/client
+  └── src/
+      ├── components/
+      ├── pages/
+      ├── services/
+      ├── App.jsx
+      └── main.jsx
+
+/server
+  ├── prisma/
+  ├── routes/
+  ├── controllers/
+  ├── utils/
+  ├── index.js
+  └── .env
+```
+
+<h3 align="center">Thank you for checking out my work. Have a nice day! </h3>

@@ -48,11 +48,13 @@ const TodoList = ({ todos, refreshTodos }) => {
                         onChange={(val) => setIsDone(val)}
                     />
                     <label htmlFor="isDone" className="ml-2 text-sm">
-                        Mark as done
+                        Completed
                     </label>
                 </div>
-                <Button variant="primary" onClick={handleAdd}>Add</Button>
             </div>
+            <Button variant="outline" onClick={handleAdd}>
+                Add Todo
+            </Button>
 
             <ul className="space-y-2">
                 {todos.map((todo) => (

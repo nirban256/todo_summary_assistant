@@ -8,7 +8,7 @@ export const Checkbox = ({ id, checked, onChange, className }) => {
             htmlFor={id}
             className={cn(
                 "inline-flex items-center justify-center w-5 h-5 border-2 border-gray-300 rounded-sm cursor-pointer transition-colors",
-                checked ? "bg-primary text-white" : "bg-white",
+                checked ? "bg-primary text-black" : "bg-white",
                 className
             )}
         >

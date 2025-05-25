@@ -26,7 +26,7 @@ const SummaryButton = () => {
     };
 
     return (
-        <Button onClick={handleSummarize} className="mt-6" variant="primary">
+        <Button onClick={handleSummarize} className="mt-6" variant="outline">
             Generate & Send Summary
         </Button>
     );
