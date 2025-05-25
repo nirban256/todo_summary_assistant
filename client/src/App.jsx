@@ -1,9 +1,13 @@
-import React from 'react'
+import Home from "./pages/Home";
+import { Toaster } from "./components/ui/sonner.jsx";
 
 const App = () => {
   return (
-    <div>App</div>
-  )
+    <>
+      <Home />
+      <Toaster position="top-right" />
+    </>
+  );
 }
 
-export default App
+export default App;

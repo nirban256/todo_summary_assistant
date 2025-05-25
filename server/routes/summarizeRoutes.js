@@ -4,7 +4,7 @@ import { postToSlack } from "../controllers/slackController.js";
 import { summarizeWithMistral } from "../controllers/summarizeMistral.js";
 
 summarizeRoutes.post("/summarize", async (req, res) => {
-    const todos = req.body.todos;
+    const todos = req.body;
 
     try {
         if (!todos || !Array.isArray(todos) || todos.length === 0) {

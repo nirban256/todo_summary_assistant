@@ -11,11 +11,7 @@ app.use(json());
 app.use(cors());
 
 app.use("/api", summarizeRoutes);
-app.use("/api/t", todoRoutes);
-
-app.get("/", (req, res) => {
-    res.status(200).send("Welcome to the Todo List API!");
-});
+app.use("/", todoRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
